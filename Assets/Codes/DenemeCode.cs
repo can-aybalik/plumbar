@@ -6,7 +6,7 @@ public class DenemeCode : MonoBehaviour
 {
 
     //Yusuf Check
-
+    // SA
 
 
     // Start is called before the first frame update
