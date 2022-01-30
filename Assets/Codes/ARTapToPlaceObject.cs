@@ -9,6 +9,9 @@ using UnityEngine.XR.ARSubsystems;
 public class ARTapToPlaceObject : MonoBehaviour
 {
 
+    [SerializeField]
+    private Camera arCamera;
+
     public GameObject gameObjectToInstantiate;
 
     private GameObject spawnedObject;
@@ -38,10 +41,22 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     void Update()
     {
+
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
-
-        if (_arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
+        /*
+        Ray ray = arCamera.ScreenPointToRay(touchPosition);
+        RaycastHit hitObject;
+        if (Physics.Raycast(ray, out hitObject))
+        {
+            GameObject gameObject = hitObject.transform.GetComponent<GameObject>();
+            if (gameObject != null)
+            {
+                ChangeSelectedObject(gameObject);
+            }
+        }
+        */
+        if (_arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon)) //Cube Týklamazsak
         {
             var hitPose = hits[0].pose;
 
@@ -60,5 +75,13 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
         spawnedObject = null;
         gameObjectToInstantiate = pipe;
+    }
+
+    void ChangeSelectedObject(GameObject selected)
+    {
+        
+        MeshRenderer meshRenderer = selected.GetComponent<MeshRenderer>();
+        meshRenderer.material.color = Color.black;
+           
     }
 }
