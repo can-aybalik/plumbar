@@ -55,4 +55,10 @@ public class ARTapToPlaceObject : MonoBehaviour
             }
         }
     }
+
+    public void setPipeType(GameObject pipe)
+    {
+        spawnedObject = null;
+        gameObjectToInstantiate = pipe;
+    }
 }
