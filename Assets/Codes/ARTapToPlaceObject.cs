@@ -13,10 +13,11 @@ public class ARTapToPlaceObject : MonoBehaviour
     private Camera arCamera;
 
     public GameObject gameObjectToInstantiate;
+    public GameObject sphere;
 
     private GameObject spawnedObject;
     private ARRaycastManager _arRaycastManager;
-    private Vector2 touchPosition;
+    private Touch touch;
     // Start is called before the first frame update
 
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
@@ -31,7 +32,9 @@ public class ARTapToPlaceObject : MonoBehaviour
 
         if (Input.touchCount > 0)
         {
-            touchPosition = Input.GetTouch(0).position;
+            touch = Input.GetTouch(0);
+            touchPosition = touch.position;
+            
             return true;
         }
 
@@ -44,31 +47,38 @@ public class ARTapToPlaceObject : MonoBehaviour
 
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
-        /*
+        
         Ray ray = arCamera.ScreenPointToRay(touchPosition);
         RaycastHit hitObject;
         if (Physics.Raycast(ray, out hitObject))
         {
-            GameObject gameObject = hitObject.transform.GetComponent<GameObject>();
-            if (gameObject != null)
+            if(hitObject.transform.tag != "Plane" && touch.phase == TouchPhase.Began) //Object Hit
             {
-                ChangeSelectedObject(gameObject);
+                //Instantiate(sphere, hitObject.transform.position, hitObject.transform.rotation);
+                ChangeSelectedObject(hitObject.collider.gameObject);
+                spawnedObject = hitObject.collider.gameObject;
             }
-        }
-        */
-        if (_arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon)) //Cube Týklamazsak
-        {
-            var hitPose = hits[0].pose;
 
-            if (spawnedObject == null)
+            else if (_arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon)) //Plane Hit
             {
-                spawnedObject = Instantiate(gameObjectToInstantiate, hitPose.position, hitPose.rotation);
+                var hitPose = hits[0].pose;
+
+                if (spawnedObject == null && touch.phase == TouchPhase.Began)
+                {
+                    spawnedObject = Instantiate(gameObjectToInstantiate, hitPose.position, hitPose.rotation); //OLUÞTURMA
+                }
+                else if(touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
+                {
+                    if (spawnedObject.tag == "Selected")
+                    {
+                        spawnedObject.transform.position = hitPose.position; //YERÝNÝ DEÐÝÞTÝRME
+                    }
+                }
             }
-            else
-            {
-                spawnedObject.transform.position = hitPose.position;
-            }
+
+
         }
+
     }
 
     public void setPipeType(GameObject pipe)
@@ -77,11 +87,16 @@ public class ARTapToPlaceObject : MonoBehaviour
         gameObjectToInstantiate = pipe;
     }
 
-    void ChangeSelectedObject(GameObject selected)
+    void ChangeSelectedObject(GameObject gameObject)
     {
+        if(gameObject.tag != "Selected") //Object Not Selected
+        {
+            MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
+            meshRenderer.material.color = Color.black;
+            gameObject.tag = "Selected";
+        }
+
         
-        MeshRenderer meshRenderer = selected.GetComponent<MeshRenderer>();
-        meshRenderer.material.color = Color.black;
            
     }
 }

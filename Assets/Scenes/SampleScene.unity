@@ -486,6 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arCamera: {fileID: 215164222}
   gameObjectToInstantiate: {fileID: 5888448203939562559, guid: 7087ef74fce7cec48b2f9c08470ed3c7, type: 3}
+  sphere: {fileID: 1337882945856094187, guid: a246a9bfbf6f38740ba3b385b885f2cd, type: 3}
 --- !u!114 &296222267
 MonoBehaviour:
   m_ObjectHideFlags: 0
