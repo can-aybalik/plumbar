@@ -18,6 +18,13 @@ public class ARTapToPlaceObject : MonoBehaviour
     private GameObject spawnedObject;
     private ARRaycastManager _arRaycastManager;
     private Touch touch;
+    private int idOfLastObject = -1;
+
+    public GameObject deleteButton;
+
+    private int upperY = 975;
+    private int lowerY = -895;
+
     // Start is called before the first frame update
 
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
@@ -54,14 +61,17 @@ public class ARTapToPlaceObject : MonoBehaviour
         {
             if(hitObject.transform.tag != "Plane" && touch.phase == TouchPhase.Began) //Object Hit
             {
+                
                 //Instantiate(sphere, hitObject.transform.position, hitObject.transform.rotation);
                 ChangeSelectedObject(hitObject.collider.gameObject);
                 spawnedObject = hitObject.collider.gameObject;
+
             }
 
-            else if (_arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon)) //Plane Hit
+            else if (hitObject.transform.tag == "Plane" && _arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon)) //Plane Hit
             {
                 var hitPose = hits[0].pose;
+               
 
                 if (spawnedObject == null && touch.phase == TouchPhase.Began)
                 {
@@ -83,8 +93,24 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     public void setPipeType(GameObject pipe)
     {
+        if(spawnedObject != null)
+        {
+            unselectObject(spawnedObject);
+        }
+
+
         spawnedObject = null;
         gameObjectToInstantiate = pipe;
+        deleteButton.SetActive(false);
+    }
+
+    public void deleteObject()
+    {
+        if (GameObject.FindGameObjectWithTag("Selected") != null)
+        {
+            Destroy(GameObject.FindGameObjectWithTag("Selected"));
+        }
+        deleteButton.SetActive(false);
     }
 
     void ChangeSelectedObject(GameObject gameObject)
@@ -93,10 +119,24 @@ public class ARTapToPlaceObject : MonoBehaviour
         {
             MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
             meshRenderer.material.color = Color.black;
-            gameObject.tag = "Selected";
-        }
+            if(GameObject.FindGameObjectWithTag("Selected") != null)
+            {
+                unselectObject(GameObject.FindGameObjectWithTag("Selected"));
 
+            }
+            gameObject.tag = "Selected";
+            deleteButton.SetActive(true);
+        }
         
-           
+
+      
     }
+
+    void unselectObject(GameObject gameObject)
+    {
+        MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
+        meshRenderer.material.color = Color.red;
+        gameObject.tag = "Unselected";
+    }
+
 }
