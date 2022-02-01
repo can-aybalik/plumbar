@@ -21,6 +21,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     private int idOfLastObject = -1;
 
     public GameObject deleteButton;
+    public GameObject rotateButton;
 
     private int upperY = 975;
     private int lowerY = -895;
@@ -102,6 +103,7 @@ public class ARTapToPlaceObject : MonoBehaviour
         spawnedObject = null;
         gameObjectToInstantiate = pipe;
         deleteButton.SetActive(false);
+        rotateButton.SetActive(false);
     }
 
     public void deleteObject()
@@ -111,6 +113,20 @@ public class ARTapToPlaceObject : MonoBehaviour
             Destroy(GameObject.FindGameObjectWithTag("Selected"));
         }
         deleteButton.SetActive(false);
+    }
+
+    public void rotateObject()
+    {
+        touch = Input.GetTouch(0);
+
+        if (GameObject.FindGameObjectWithTag("Selected") != null)
+        {
+            
+            GameObject.FindGameObjectWithTag("Selected").transform.Rotate(Vector3.up * 50 * Time.deltaTime, Space.Self);
+            
+            
+        }
+
     }
 
     void ChangeSelectedObject(GameObject gameObject)
@@ -126,6 +142,7 @@ public class ARTapToPlaceObject : MonoBehaviour
             }
             gameObject.tag = "Selected";
             deleteButton.SetActive(true);
+            rotateButton.SetActive(true);
         }
         
 
