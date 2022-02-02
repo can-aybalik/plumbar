@@ -15,6 +15,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     public GameObject gameObjectToInstantiate;
     public GameObject sphere;
     public GameObject arPlane;
+    public GameObject arSessionOrigin;
 
     private GameObject spawnedObject;
     private ARRaycastManager _arRaycastManager;
@@ -92,6 +93,7 @@ public class ARTapToPlaceObject : MonoBehaviour
             }
 
 
+
         }
 
         if (checkRotate == true && GameObject.FindGameObjectWithTag("Selected") != null)
@@ -142,12 +144,30 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
         if(seePlane == true)
         {
-            arPlane.GetComponent<MeshRenderer>().enabled = false;
+            //arPlane.GetComponent<LineRenderer>().enabled = false;
+            //arSessionOrigin.GetComponent<ARPlaneManager>().enabled = false;
+            //arSessionOrigin.GetComponent<ARPlaneManager>().requestedDetectionMode = PlaneDetectionMode.None;
+
+
+            foreach (var plane in arSessionOrigin.GetComponent<ARPlaneManager>().trackables)
+            {
+                plane.gameObject.SetActive(false);
+            }
+            seePlane = false;
         }
         else
         {
-            arPlane.GetComponent<MeshRenderer>().enabled = true;
+            //arPlane.GetComponent<LineRenderer>().enabled = true;
+            //arSessionOrigin.GetComponent<ARPlaneManager>().enabled = true;
+            //arSessionOrigin.GetComponent<ARPlaneManager>().requestedDetectionMode = PlaneDetectionMode.None;
+            foreach (var plane in arSessionOrigin.GetComponent<ARPlaneManager>().trackables)
+            {
+                plane.gameObject.SetActive(true);
+            }
+            seePlane = true;
         }
+
+        
 
     }
 

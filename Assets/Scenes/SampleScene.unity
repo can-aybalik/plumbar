@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlanePrefab: {fileID: 7411644425161953162, guid: fad12e91c9dea69449d73c59fa90a0db, type: 3}
+  m_PlanePrefab: {fileID: 4172432785390061746, guid: 63c0d44b1eb4d8149b0ae6fc9072d68d, type: 3}
   m_DetectionMode: -1
 --- !u!114 &296222266
 MonoBehaviour:
@@ -707,6 +707,7 @@ MonoBehaviour:
   gameObjectToInstantiate: {fileID: 5888448203939562559, guid: 7087ef74fce7cec48b2f9c08470ed3c7, type: 3}
   sphere: {fileID: 1337882945856094187, guid: a246a9bfbf6f38740ba3b385b885f2cd, type: 3}
   arPlane: {fileID: 7411644425161953162, guid: fad12e91c9dea69449d73c59fa90a0db, type: 3}
+  arSessionOrigin: {fileID: 296222262}
   deleteButton: {fileID: 259715463}
   rotateButton: {fileID: 1985308836}
 --- !u!114 &296222267
@@ -947,7 +948,7 @@ GameObject:
   - component: {fileID: 557549738}
   - component: {fileID: 557549737}
   m_Layer: 5
-  m_Name: PlaneVisual
+  m_Name: TogglePlane
   m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1249,10 +1250,10 @@ Light:
   m_GameObject: {fileID: 694101856}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 1
+  m_Type: 3
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 50
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1291,7 +1292,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
