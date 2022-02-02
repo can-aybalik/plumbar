@@ -14,6 +14,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     public GameObject gameObjectToInstantiate;
     public GameObject sphere;
+    public GameObject arPlane;
 
     private GameObject spawnedObject;
     private ARRaycastManager _arRaycastManager;
@@ -25,6 +26,9 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     private int upperY = 975;
     private int lowerY = -895;
+
+    private bool checkRotate = false;
+    private bool seePlane = true;
 
     // Start is called before the first frame update
 
@@ -90,6 +94,12 @@ public class ARTapToPlaceObject : MonoBehaviour
 
         }
 
+        if (checkRotate == true && GameObject.FindGameObjectWithTag("Selected") != null)
+        {
+
+            GameObject.FindGameObjectWithTag("Selected").transform.Rotate(Vector3.up * 50 * Time.deltaTime, Space.Self);
+        }
+
     }
 
     public void setPipeType(GameObject pipe)
@@ -117,14 +127,26 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     public void rotateObject()
     {
-        touch = Input.GetTouch(0);
+        checkRotate = true;
+       
 
-        if (GameObject.FindGameObjectWithTag("Selected") != null)
+      
+    }
+
+    public void stopRotateObject()
+    {
+        checkRotate = false;
+    }
+
+    public void togglePlane()
+    {
+        if(seePlane == true)
         {
-            
-            GameObject.FindGameObjectWithTag("Selected").transform.Rotate(Vector3.up * 50 * Time.deltaTime, Space.Self);
-            
-            
+            arPlane.GetComponent<MeshRenderer>().enabled = false;
+        }
+        else
+        {
+            arPlane.GetComponent<MeshRenderer>().enabled = true;
         }
 
     }
