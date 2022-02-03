@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -74,20 +74,20 @@ public class ARTapToPlaceObject : MonoBehaviour
 
             }
 
-            else if (hitObject.transform.tag == "Plane" && _arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon)) //Plane Hit
+            else if (_arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
             {
                 var hitPose = hits[0].pose;
                
 
                 if (spawnedObject == null && touch.phase == TouchPhase.Began)
                 {
-                    spawnedObject = Instantiate(gameObjectToInstantiate, hitPose.position, hitPose.rotation); //OLUÞTURMA
+                    spawnedObject = Instantiate(gameObjectToInstantiate, hitPose.position, hitPose.rotation); //OLUÅžTURMA
                 }
                 else if(touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
                 {
                     if (spawnedObject.tag == "Selected")
                     {
-                        spawnedObject.transform.position = hitPose.position; //YERÝNÝ DEÐÝÞTÝRME
+                        spawnedObject.transform.position = hitPose.position; //YERÄ°NÄ° DEÄžÄ°ÅžTÄ°RME
                     }
                 }
             }
