@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
 
 
 [RequireComponent(typeof(ARRaycastManager))]
@@ -114,8 +115,8 @@ public class ARTapToPlaceObject : MonoBehaviour
 
         spawnedObject = null;
         gameObjectToInstantiate = pipe;
-        deleteButton.SetActive(false);
-        rotateButton.SetActive(false);
+        deleteButton.GetComponent<Button>().interactable = false;
+        rotateButton.GetComponent<Button>().interactable = false;
     }
 
     public void deleteObject()
@@ -124,7 +125,8 @@ public class ARTapToPlaceObject : MonoBehaviour
         {
             Destroy(GameObject.FindGameObjectWithTag("Selected"));
         }
-        deleteButton.SetActive(false);
+        deleteButton.GetComponent<Button>().interactable = false;
+        rotateButton.GetComponent<Button>().interactable = false;
     }
 
     public void rotateObject()
@@ -183,8 +185,8 @@ public class ARTapToPlaceObject : MonoBehaviour
 
             }
             gameObject.tag = "Selected";
-            deleteButton.SetActive(true);
-            rotateButton.SetActive(true);
+            deleteButton.GetComponent<Button>().interactable = true;
+            rotateButton.GetComponent<Button>().interactable = true;
         }
         
 
