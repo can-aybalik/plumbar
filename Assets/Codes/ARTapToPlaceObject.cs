@@ -82,6 +82,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
                 if (spawnedObject == null && touch.phase == TouchPhase.Began)
                 {
+                    hitPose.rotation *= Quaternion.Euler(new Vector3(90, 0, 0));
                     spawnedObject = Instantiate(gameObjectToInstantiate, hitPose.position, hitPose.rotation); //OLUŞTURMA
                 }
                 else if(touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
@@ -100,7 +101,7 @@ public class ARTapToPlaceObject : MonoBehaviour
         if (checkRotate == true && GameObject.FindGameObjectWithTag("Selected") != null)
         {
 
-            GameObject.FindGameObjectWithTag("Selected").transform.Rotate(Vector3.up * 50 * Time.deltaTime, Space.Self);
+            GameObject.FindGameObjectWithTag("Selected").transform.Rotate(Vector3.forward * 50 * Time.deltaTime, Space.Self);
         }
 
     }
