@@ -53,7 +53,7 @@ public class ARTapToPlaceObject : MonoBehaviour
         {
             touch = Input.GetTouch(0);
             touchPosition = touch.position;
-            
+
             return true;
         }
 
@@ -66,14 +66,14 @@ public class ARTapToPlaceObject : MonoBehaviour
 
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
-        
+
         Ray ray = arCamera.ScreenPointToRay(touchPosition);
         RaycastHit hitObject;
         if (Physics.Raycast(ray, out hitObject))
         {
-            if(hitObject.transform.tag != "Plane" && touch.phase == TouchPhase.Began) //Object Hit
+            if (hitObject.transform.tag != "Plane" && touch.phase == TouchPhase.Began) //Object Hit
             {
-                
+
                 //Instantiate(sphere, hitObject.transform.position, hitObject.transform.rotation);
                 ChangeSelectedObject(hitObject.collider.gameObject);
                 spawnedObject = hitObject.collider.gameObject;
@@ -83,12 +83,12 @@ public class ARTapToPlaceObject : MonoBehaviour
             else if (_arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
             {
                 var hitPose = hits[0].pose;
-               
+
 
                 if (spawnedObject == null && touch.phase == TouchPhase.Began)
                 {
+                    //
 
-                    
 
                     Quaternion orientation = Quaternion.identity;
                     Quaternion zUp = Quaternion.identity;
@@ -96,32 +96,32 @@ public class ARTapToPlaceObject : MonoBehaviour
 
                     if (hitObject.transform.GetComponent<ARPlane>().alignment == PlaneAlignment.Vertical)
                     {
-                        //orientation *= Quaternion.Euler(new Vector3(90, 0, 0));
-                        //zUp *= Quaternion.Euler(new Vector3(90, 0, 0));
+                        orientation *= Quaternion.Euler(new Vector3(90, 0, 0));
+                        zUp *= Quaternion.Euler(new Vector3(90, 0, 0));
                         isVertical = true;
                     }
                     else
                     {
                         isVertical = false;
                     }
-                    
+
                     spawnedObject = Instantiate(gameObjectToInstantiate, hitPose.position, orientation); //OLUŞTURMA
                     spawnedObject.transform.rotation = zUp;
                     //gameObjects.Add(gameObjectToInstantiate);
                 }
-                else if(touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
+                else if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
                 {
                     if (spawnedObject.tag == "Selected")
                     {
-                        if(isVertical)
+                        if (isVertical)
                         {
-                            //spawnedObject.transform.position = hitPose.position + new Vector3(0, -spawnedObject.GetComponent<BoxCollider>().center.y, 0); //YERİNİ DEĞİŞTİRME
-                            spawnedObject.transform.position = hitPose.position;
+                            spawnedObject.transform.position = hitPose.position + new Vector3(0, -spawnedObject.GetComponent<BoxCollider>().center.y, 0); //YERİNİ DEĞİŞTİRME
+                            //spawnedObject.transform.position = hitPose.position;
                         }
                         else
                         {
-                            //spawnedObject.transform.position = hitPose.position + new Vector3(-spawnedObject.GetComponent<BoxCollider>().center.x, 0, 0);
-                            spawnedObject.transform.position = hitPose.position;
+                            spawnedObject.transform.position = hitPose.position + new Vector3(-spawnedObject.GetComponent<BoxCollider>().center.x, 0, 0);
+                            //spawnedObject.transform.position = hitPose.position;
                         }
                     }
                 }
@@ -141,7 +141,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     public void setPipeType(GameObject pipe)
     {
-        if(spawnedObject != null)
+        if (spawnedObject != null)
         {
             unselectObject(spawnedObject);
         }
@@ -167,9 +167,9 @@ public class ARTapToPlaceObject : MonoBehaviour
     public void rotateObject()
     {
         checkRotate = true;
-       
 
-      
+
+
     }
 
     public void stopRotateObject()
@@ -179,7 +179,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     public void togglePlane()
     {
-        if(seePlane == true)
+        if (seePlane == true)
         {
             //arPlane.GetComponent<LineRenderer>().enabled = false;
             //arSessionOrigin.GetComponent<ARPlaneManager>().enabled = false;
@@ -206,7 +206,7 @@ public class ARTapToPlaceObject : MonoBehaviour
             seePlane = true;
         }
 
-        
+
 
     }
 
@@ -214,7 +214,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
 
         //arSessionOrigin.GetComponent<ARPlaneManager>().enabled = false;
-        
+
     }
 
     public void resetSession()
@@ -225,11 +225,11 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     void ChangeSelectedObject(GameObject gameObject)
     {
-        if(gameObject.tag != "Selected") //Object Not Selected
+        if (gameObject.tag != "Selected") //Object Not Selected
         {
             MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
             meshRenderer.material.color = Color.black;
-            if(GameObject.FindGameObjectWithTag("Selected") != null)
+            if (GameObject.FindGameObjectWithTag("Selected") != null)
             {
                 unselectObject(GameObject.FindGameObjectWithTag("Selected"));
 
@@ -238,9 +238,9 @@ public class ARTapToPlaceObject : MonoBehaviour
             deleteButton.GetComponent<Button>().interactable = true;
             rotateButton.GetComponent<Button>().interactable = true;
         }
-        
 
-      
+
+
     }
 
     void unselectObject(GameObject gameObject)
