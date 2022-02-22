@@ -5,9 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Samples/ARCore Extensions/1.29.0/Persistent Cloud Anchor Sample/Scenes/Persistent
+      Copy.unity
+    guid: a1cbde3cab63248f4bbf8d8ad6586754
+  - enabled: 0
+    path: Assets/Samples/ARCore Extensions/1.29.0/Persistent Cloud Anchor Sample/Scenes/Persistent.unity
+    guid: 2f3600ddb612ff14a9e71b3a40c329b3
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 3ff0ed2641c288544b0da15950fceba2, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: b75e38217169a2644a07ce18f5f56609, type: 2}

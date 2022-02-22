@@ -14,8 +14,10 @@ public class ARTapToPlaceObject : MonoBehaviour
     [SerializeField]
     private Camera arCamera;
 
-    public GameObject gameObjectToInstantiate;
-    public GameObject sphere;
+    public ARAnchorManager AnchorManager;
+    public GameObject anchor;
+    private GameObject gameObjectToInstantiate;
+
     public GameObject arPlane;
     public GameObject arSessionOrigin;
     public GameObject arSession;
@@ -107,6 +109,22 @@ public class ARTapToPlaceObject : MonoBehaviour
 
                     spawnedObject = Instantiate(gameObjectToInstantiate, hitPose.position, orientation); //OLUŞTURMA
                     spawnedObject.transform.rotation = zUp;
+
+
+                    //Pose objectPose = new Pose(spawnedObject.transform.position, spawnedObject.transform.rotation);
+                    //ARAnchor referencePoint = AnchorManager.AddAnchor(objectPose);
+
+                    
+
+                    /*
+                    if(spawnedObject != null && anchor != null)
+                    {
+                        //spawnedObject.transform.parent = anchor.transform;
+                        spawnedObject.transform.SetParent(anchor.transform);
+                    }
+                    */  
+                    
+                    
                     //gameObjects.Add(gameObjectToInstantiate);
                 }
                 else if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)

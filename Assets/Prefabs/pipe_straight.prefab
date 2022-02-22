@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3526044701952883726}
   - component: {fileID: 3526044701953992810}
   - component: {fileID: 134380187172375626}
+  - component: {fileID: -821759374587905799}
+  - component: {fileID: 5154744708933893276}
   m_Layer: 0
   m_Name: pipe_straight
   m_TagString: Untagged
@@ -95,3 +97,33 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.097, y: 0.2051, z: 0.097}
   m_Center: {x: 0, y: 0.10255, z: 0}
+--- !u!114 &-821759374587905799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526044701955987226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b50ad3f5d9024549b0a549c5a03a084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Session: {fileID: 5486951445350660505, guid: 087e249e0288f10408db4d3b921ebdec, type: 3}
+  SessionOrigin: {fileID: 8832223174257337977, guid: ca39b8f065689c44ba978bab52aa8e91, type: 3}
+  CameraManager: {fileID: 0}
+  ARCoreExtensionsConfig: {fileID: 11400000, guid: d9982b676440d754eb65566cc3059158, type: 2}
+  CameraConfigFilter: {fileID: 0}
+--- !u!114 &5154744708933893276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526044701955987226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb898793194e03f4bb10dba03ec2cb70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DestroyOnRemoval: 1
