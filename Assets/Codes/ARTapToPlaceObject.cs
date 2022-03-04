@@ -5,6 +5,8 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using System.Globalization;
 
 
 [RequireComponent(typeof(ARRaycastManager))]
@@ -14,8 +16,13 @@ public class ARTapToPlaceObject : MonoBehaviour
     [SerializeField]
     private Camera arCamera;
 
-    public ARAnchorManager AnchorManager;
+    public Text debugText;
+
+    public pipeController pipecontroller;
+
     public GameObject anchor;
+    public GameObject[] pipes;
+    public ARAnchorManager AnchorManager;
     private GameObject gameObjectToInstantiate;
 
     public GameObject arPlane;
@@ -169,6 +176,64 @@ public class ARTapToPlaceObject : MonoBehaviour
         gameObjectToInstantiate = pipe;
         deleteButton.GetComponent<Button>().interactable = false;
         rotateButton.GetComponent<Button>().interactable = false;
+    }
+
+    public void getPipes()
+    {
+        GameObject myAnchor = Instantiate(anchor, GameObject.FindGameObjectWithTag("Anchor").transform); //Instantiate Anchor
+
+        Transform anchorPos = myAnchor.transform;
+
+        GameObject.FindGameObjectWithTag("Anchor").GetComponent<MeshRenderer>().enabled = false;
+
+        debugText.text = pipecontroller.pipe_data;
+
+        string[] pipe_star = (pipecontroller.pipe_data).Split('*');
+
+        string pipe_name = "";
+        Vector3 pipe_position = new Vector3(0,0,0);
+        Vector3 pipe_rotation = new Vector3(0,0,0);
+
+
+        for( int i = 0; i < pipe_star.Length - 1; i++)
+        {
+            string[] pipe_dash = pipe_star[i].Split('|');
+
+            
+            pipe_name = pipe_dash[0];
+            pipe_position = getVector3(pipe_dash[1]);
+            pipe_rotation = getVector3(pipe_dash[2]);
+            
+
+            Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, Quaternion.Euler(pipe_rotation + anchorPos.rotation.eulerAngles));
+        }
+    }
+
+    public Vector3 getVector3(string rString)
+    {
+        string[] temp = rString.Substring(1, rString.Length - 2).Split(',');
+
+
+        double x = double.Parse(temp[0], CultureInfo.InvariantCulture.NumberFormat);
+        double y = double.Parse(temp[1], CultureInfo.InvariantCulture.NumberFormat);
+        double z = double.Parse(temp[2], CultureInfo.InvariantCulture.NumberFormat);
+
+        Vector3 rValue = new Vector3((float)x, (float)y, (float)z);
+        return rValue;
+    }
+
+    public Quaternion getQuaternion(string rString)
+    {
+        string[] temp = rString.Substring(1, rString.Length - 2).Split(',');
+
+
+        double x = double.Parse(temp[0], CultureInfo.InvariantCulture.NumberFormat);
+        double y = double.Parse(temp[1], CultureInfo.InvariantCulture.NumberFormat);
+        double z = double.Parse(temp[2], CultureInfo.InvariantCulture.NumberFormat);
+        double w = double.Parse(temp[3], CultureInfo.InvariantCulture.NumberFormat);
+
+        Quaternion rValue = new Quaternion((float)x, (float)y, (float)z, (float)w);
+        return rValue;
     }
 
     public void deleteObject()

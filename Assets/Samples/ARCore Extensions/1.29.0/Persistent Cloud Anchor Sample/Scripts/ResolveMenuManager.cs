@@ -31,6 +31,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
     /// </summary>
     public class ResolveMenuManager : MonoBehaviour
     {
+
+        public pipeController pipecontroller;
         /// <summary>
         /// The main controller for Persistent Cloud Anchors sample.
         /// </summary>
@@ -77,8 +79,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             // letters, numbers, hyphen(-), underscore(_), and comma(,).
             // Note: the valid character set is controlled by the validation rule of
             // the naming field in AR View.
-            var regex = new Regex("^[a-zA-Z0-9-_,]*$");
-            InvalidInputWarning.SetActive(!regex.IsMatch(inputString));
+            //var regex = new Regex("^[a-zA-Z0-9-_,]*$");
+            //InvalidInputWarning.SetActive(!regex.IsMatch(inputString));
         }
 
         /// <summary>
@@ -113,15 +115,20 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                 }
             }
 
+            
+
             // Add Cloud Anchor Ids from input field.
             if (!InvalidInputWarning.activeSelf && InputField.text.Length > 0)
             {
-                string[] inputIds = InputField.text.Split(',');
+                string[] inputIds = { InputField.text.Substring(0, 35) };
+
                 if (inputIds.Length > 0)
                 {
                     Controller.ResolvingSet.UnionWith(inputIds);
                 }
             }
+
+            pipecontroller.pipe_data = InputField.text.Substring(35);
 
             // Update resolve button.
             SetButtonActive(ResolveButton, Controller.ResolvingSet.Count > 0);

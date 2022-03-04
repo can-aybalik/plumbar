@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1155367055346754458}
   - component: {fileID: 5149535123241691980}
   m_Layer: 0
-  m_Name: pipe_u
-  m_TagString: Untagged
+  m_Name: 5
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -43,8 +43,8 @@ GameObject:
   - component: {fileID: 8106828696819130402}
   - component: {fileID: 9152705189093407454}
   m_Layer: 0
-  m_Name: combin_11
-  m_TagString: Untagged
+  m_Name: 9
+  m_TagString: Pipe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

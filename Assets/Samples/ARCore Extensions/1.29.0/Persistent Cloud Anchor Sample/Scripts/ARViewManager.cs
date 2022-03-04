@@ -28,6 +28,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
     using UnityEngine.XR.ARFoundation;
     using UnityEngine.XR.ARSubsystems;
+    using System.Linq;
 
     /// <summary>
     /// A manager component that helps with hosting and resolving Cloud Anchors.
@@ -35,7 +36,13 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
     public class ARViewManager : MonoBehaviour
     {
 
+        private List<GameObject> pipeList;
+        private GameObject[] pipeObjects;
+        private GameObject[] selectedObjects;
+        private GameObject[] unselectedObjects;
         public GameObject pipeUI;
+
+        private string pipe_data = "";
         /// <summary>
         /// The main controller for Persistent Cloud Anchors sample.
         /// </summary>
@@ -208,8 +215,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         public void OnInputFieldValueChanged(string inputString)
         {
             // Cloud Anchor name should only contains: letters, numbers, hyphen(-), underscore(_).
-            var regex = new Regex("^[a-zA-Z0-9-_]*$");
-            InputFieldWarning.SetActive(!regex.IsMatch(inputString));
+            //var regex = new Regex("^[a-zA-Z0-9-_]*$");
+            //InputFieldWarning.SetActive(!regex.IsMatch(inputString));
             SetSaveButtonActive(!InputFieldWarning.activeSelf && inputString.Length > 0);
         }
 
@@ -222,6 +229,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             Controller.SaveCloudAnchorHistory(_hostedCloudAnchor);
 
             DebugText.text = string.Format("Saved Cloud Anchor:\n{0}.", _hostedCloudAnchor.Name);
+
             ShareButton.gameObject.SetActive(true);
             NamePanel.SetActive(false);
         }
@@ -231,8 +239,44 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// </summary>
         public void OnShareButtonClicked()
         {
-            GUIUtility.systemCopyBuffer = _hostedCloudAnchor.Id;
+            collectPipes();
+            GUIUtility.systemCopyBuffer = _hostedCloudAnchor.Id + pipe_data;
             DebugText.text = "Copied cloud id: " + _hostedCloudAnchor.Id;
+        }
+
+        //1-(1,2,3)-(3-4-5)*2-(2,4,6)-(4,6,8)
+
+        public void collectPipes()
+        {
+            pipeObjects = GameObject.FindGameObjectsWithTag("Pipe");
+            selectedObjects = GameObject.FindGameObjectsWithTag("Selected");
+            unselectedObjects = GameObject.FindGameObjectsWithTag("Unselected");
+
+            var finalArray = pipeObjects.Concat(selectedObjects);
+            finalArray = finalArray.Concat(unselectedObjects);
+            finalArray.ToArray();
+
+            GameObject anchor = GameObject.FindGameObjectWithTag("Anchor");
+            Transform anchorPos = anchor.transform;
+
+            string objectName;
+
+            foreach(GameObject pipe in finalArray)
+            {
+                objectName = pipe.name;
+
+                if(objectName.Substring(1,2) == "0") // ilk iki
+                {
+                    objectName = objectName.Substring(0, 2);
+                }
+                else //ilk basamak
+                {
+                    objectName = objectName.Substring(0, 1);
+                }
+
+                pipe_data += objectName + "|" + (pipe.transform.position - anchorPos.position).ToString("F8") + "|" + (pipe.transform.rotation.eulerAngles - anchorPos.rotation.eulerAngles).ToString("F8") + "*";
+            }
+
         }
 
         /// <summary>

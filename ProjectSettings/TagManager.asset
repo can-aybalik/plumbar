@@ -8,6 +8,8 @@ TagManager:
   - Selected
   - Unselected
   - Button
+  - Pipe
+  - Anchor
   layers:
   - Default
   - TransparentFX
