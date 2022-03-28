@@ -63,6 +63,11 @@ public class ARTapToPlaceObject : MonoBehaviour
             touch = Input.GetTouch(0);
             touchPosition = touch.position;
 
+            if (touchPosition.y < Screen.height * 1 / 5 || touchPosition.y > Screen.height * 4 / 5)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -72,6 +77,11 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     void Update()
     {
+        if (checkRotate == true && GameObject.FindGameObjectWithTag("Selected") != null)
+        {
+
+            GameObject.FindGameObjectWithTag("Selected").transform.Rotate(Vector3.forward * 50 * Time.deltaTime, Space.Self);
+        }
 
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
@@ -156,11 +166,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
         }
 
-        if (checkRotate == true && GameObject.FindGameObjectWithTag("Selected") != null)
-        {
-
-            GameObject.FindGameObjectWithTag("Selected").transform.Rotate(Vector3.forward * 50 * Time.deltaTime, Space.Self);
-        }
+        
 
     }
 
