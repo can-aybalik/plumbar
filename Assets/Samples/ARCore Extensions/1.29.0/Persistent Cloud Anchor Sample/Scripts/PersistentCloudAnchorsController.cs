@@ -24,6 +24,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.XR.ARFoundation;
+    using UnityEngine.SceneManagement;
 
     /// <summary>
     /// Controller for Persistent Cloud Anchors sample.
@@ -181,7 +182,14 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             ResetAllViews();
             Mode = ApplicationMode.Ready;
             ResolvingSet.Clear();
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
             HomePage.SetActive(true);
+            //pipeUI.SetActive(false);
+        }
+
+        public void backButton()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
         }
 
         /// <summary>
