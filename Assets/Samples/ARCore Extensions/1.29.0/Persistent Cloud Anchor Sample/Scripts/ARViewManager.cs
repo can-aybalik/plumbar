@@ -29,13 +29,14 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
     using UnityEngine.XR.ARFoundation;
     using UnityEngine.XR.ARSubsystems;
     using System.Linq;
+    using System.Globalization;
 
     /// <summary>
     /// A manager component that helps with hosting and resolving Cloud Anchors.
     /// </summary>
     public class ARViewManager : MonoBehaviour
     {
-
+        public pipeController pipecontroller;
         private List<GameObject> pipeList;
         private GameObject[] pipeObjects;
         private GameObject[] selectedObjects;
@@ -43,6 +44,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         public GameObject pipeUI;
 
         private string pipe_data = "";
+        public GameObject anchor;
+        public GameObject[] pipes;
         /// <summary>
         /// The main controller for Persistent Cloud Anchors sample.
         /// </summary>
@@ -231,6 +234,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             DebugText.text = string.Format("Saved Cloud Anchor:\n{0}.", _hostedCloudAnchor.Name);
 
             ShareButton.gameObject.SetActive(true);
+            ShareButton.gameObject.GetComponent<Button>().interactable = true;
             NamePanel.SetActive(false);
         }
 
@@ -303,7 +307,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             InstructionBar.SetActive(true);
             NamePanel.SetActive(false);
             InputFieldWarning.SetActive(false);
-            ShareButton.gameObject.SetActive(false);
+            //ShareButton.gameObject.SetActive(false);
             UpdatePlaneVisibility(true);
 
             switch (Controller.Mode)
@@ -581,6 +585,64 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
             Controller.ResolvingSet.Clear();
         }
+        
+        public void getPipes()
+        {
+            GameObject myAnchor = Instantiate(anchor, GameObject.FindGameObjectWithTag("Anchor").transform); //Instantiate Anchor
+
+            Transform anchorPos = myAnchor.transform;
+
+            GameObject.FindGameObjectWithTag("Anchor").GetComponent<MeshRenderer>().enabled = false;
+
+            //debugText.text = pipecontroller.pipe_data;
+
+            string[] pipe_star = (pipecontroller.pipe_data).Split('*');
+
+            string pipe_name = "";
+            Vector3 pipe_position = new Vector3(0, 0, 0);
+            Vector3 pipe_rotation = new Vector3(0, 0, 0);
+
+
+            for (int i = 0; i < pipe_star.Length - 1; i++)
+            {
+                string[] pipe_dash = pipe_star[i].Split('|');
+
+
+                pipe_name = pipe_dash[0];
+                pipe_position = getVector3(pipe_dash[1]);
+                pipe_rotation = getVector3(pipe_dash[2]);
+
+
+                Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, Quaternion.Euler(pipe_rotation + anchorPos.rotation.eulerAngles));
+            }
+        }
+
+        public Vector3 getVector3(string rString)
+        {
+            string[] temp = rString.Substring(1, rString.Length - 2).Split(',');
+
+
+            double x = double.Parse(temp[0], CultureInfo.InvariantCulture.NumberFormat);
+            double y = double.Parse(temp[1], CultureInfo.InvariantCulture.NumberFormat);
+            double z = double.Parse(temp[2], CultureInfo.InvariantCulture.NumberFormat);
+
+            Vector3 rValue = new Vector3((float)x, (float)y, (float)z);
+            return rValue;
+        }
+
+        public Quaternion getQuaternion(string rString)
+        {
+            string[] temp = rString.Substring(1, rString.Length - 2).Split(',');
+
+
+            double x = double.Parse(temp[0], CultureInfo.InvariantCulture.NumberFormat);
+            double y = double.Parse(temp[1], CultureInfo.InvariantCulture.NumberFormat);
+            double z = double.Parse(temp[2], CultureInfo.InvariantCulture.NumberFormat);
+            double w = double.Parse(temp[3], CultureInfo.InvariantCulture.NumberFormat);
+
+            Quaternion rValue = new Quaternion((float)x, (float)y, (float)z, (float)w);
+            return rValue;
+        }
 
         private void UpdatePendingCloudAnchors()
         {
@@ -604,6 +666,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                             cloudAnchor.cloudAnchorId);
                         OnAnchorResolvedFinished(true, cloudAnchor.cloudAnchorId);
                         Instantiate(CloudAnchorPrefab, cloudAnchor.transform);
+                        getPipes();
                     }
 
                     _cachedCloudAnchors.Add(cloudAnchor);

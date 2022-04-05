@@ -33,6 +33,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
     {
         [Header("AR Foundation")]
 
+        public GameObject backButtonForResolve;
+
         public GameObject pipeUI;
         /// <summary>
         /// The active ARSessionOrigin used in the example.
@@ -163,6 +165,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         {
             Mode = ApplicationMode.Resolving;
             SwitchToResolveMenu();
+            
         }
 
         /// <summary>
@@ -190,6 +193,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         public void backButton()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
+            
         }
 
         /// <summary>
@@ -209,6 +213,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             if (PlayerPrefs.HasKey(_hasDisplayedStartInfoKey))
             {
                 SwitchToARView();
+                backButtonForResolve.SetActive(true);
                 return;
             }
 
