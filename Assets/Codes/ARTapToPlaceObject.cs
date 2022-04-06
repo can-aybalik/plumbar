@@ -18,6 +18,9 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     public Text debugText;
 
+    public GameObject getPipesButton;
+    public ARPlaneManager aRPlaneManager;
+
     public pipeController pipecontroller;
 
     public GameObject anchor;
@@ -77,6 +80,11 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     void Update()
     {
+        if(pipecontroller.check == true)
+        {
+            pipecontroller.check = false;
+            getPipes();
+        }
         if (checkRotate == true && GameObject.FindGameObjectWithTag("Selected") != null)
         {
 
@@ -198,7 +206,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
         string pipe_name = "";
         Vector3 pipe_position = new Vector3(0,0,0);
-        Vector3 pipe_rotation = new Vector3(0,0,0);
+        Quaternion pipe_rotation = new Quaternion(0,0,0,0);
 
 
         for( int i = 0; i < pipe_star.Length - 1; i++)
@@ -208,11 +216,21 @@ public class ARTapToPlaceObject : MonoBehaviour
             
             pipe_name = pipe_dash[0];
             pipe_position = getVector3(pipe_dash[1]);
-            pipe_rotation = getVector3(pipe_dash[2]);
-            
+            pipe_rotation = getQuaternion(pipe_dash[2]);
 
-            Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, Quaternion.Euler(pipe_rotation + anchorPos.rotation.eulerAngles));
+
+            //Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, Quaternion.Euler(pipe_rotation + anchorPos.rotation.eulerAngles));
+            Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, pipe_rotation * anchorPos.rotation);
         }
+
+        getPipesButton.SetActive(false);
+
+        foreach (var plane in arSessionOrigin.GetComponent<ARPlaneManager>().trackables)
+        {
+            plane.gameObject.SetActive(false);
+        }
+        seePlane = false;
+        arSessionOrigin.GetComponent<ARPlaneManager>().enabled = false;
     }
 
     public Vector3 getVector3(string rString)

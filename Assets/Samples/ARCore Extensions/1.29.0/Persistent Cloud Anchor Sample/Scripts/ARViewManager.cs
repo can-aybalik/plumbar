@@ -278,7 +278,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                     objectName = objectName.Substring(0, 1);
                 }
 
-                pipe_data += objectName + "|" + (pipe.transform.position - anchorPos.position).ToString("F8") + "|" + (pipe.transform.rotation.eulerAngles - anchorPos.rotation.eulerAngles).ToString("F8") + "*";
+                pipe_data += objectName + "|" + (pipe.transform.position - anchorPos.position).ToString("F8") + "|" + (pipe.transform.rotation * Quaternion.Inverse(anchorPos.rotation)).ToString("F8") + "*";
             }
 
         }
@@ -600,7 +600,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
             string pipe_name = "";
             Vector3 pipe_position = new Vector3(0, 0, 0);
-            Vector3 pipe_rotation = new Vector3(0, 0, 0);
+            Quaternion pipe_rotation = new Quaternion(0, 0, 0, 0);
 
 
             for (int i = 0; i < pipe_star.Length - 1; i++)
@@ -610,10 +610,11 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
                 pipe_name = pipe_dash[0];
                 pipe_position = getVector3(pipe_dash[1]);
-                pipe_rotation = getVector3(pipe_dash[2]);
+                pipe_rotation = getQuaternion(pipe_dash[2]);
 
 
-                Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, Quaternion.Euler(pipe_rotation + anchorPos.rotation.eulerAngles));
+                //Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, Quaternion.Euler(pipe_rotation + anchorPos.rotation.eulerAngles));
+                Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, pipe_rotation * anchorPos.rotation);
             }
         }
 
@@ -666,7 +667,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                             cloudAnchor.cloudAnchorId);
                         OnAnchorResolvedFinished(true, cloudAnchor.cloudAnchorId);
                         Instantiate(CloudAnchorPrefab, cloudAnchor.transform);
-                        getPipes();
+                        //pipecontroller.ExecuteAfterTime(3);
                     }
 
                     _cachedCloudAnchors.Add(cloudAnchor);

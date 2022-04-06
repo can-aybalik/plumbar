@@ -34,6 +34,11 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         [Header("AR Foundation")]
 
         public GameObject backButtonForResolve;
+        public GameObject getPipesButton;
+
+        public ARSession aRSession;
+
+        public ARPlaneManager aRPlaneManager;
 
         public GameObject pipeUI;
         /// <summary>
@@ -155,7 +160,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         public void OnHostButtonClicked()
         {
             Mode = ApplicationMode.Hosting;
-            SwitchToPrivacyPrompt();
+            SwitchToPrivacyPromptClone();
         }
 
         /// <summary>
@@ -192,6 +197,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
         public void backButton()
         {
+            aRSession.Reset();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
             
         }
@@ -203,6 +209,21 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         {
             ResetAllViews();
             ResolveMenu.SetActive(true);
+            //getPipesButton.SetActive(true);
+        }
+
+        public void SwitchToPrivacyPromptClone()
+        {
+            if (PlayerPrefs.HasKey(_hasDisplayedStartInfoKey))
+            {
+                SwitchToARView();
+                backButtonForResolve.SetActive(true);
+
+                return;
+            }
+
+            ResetAllViews();
+            PrivacyPrompt.SetActive(true);
         }
 
         /// <summary>
@@ -214,6 +235,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             {
                 SwitchToARView();
                 backButtonForResolve.SetActive(true);
+                getPipesButton.SetActive(true);
                 return;
             }
 
