@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using System.Globalization;
+using System.Linq;
 
 
 [RequireComponent(typeof(ARRaycastManager))]
@@ -17,6 +18,10 @@ public class ARTapToPlaceObject : MonoBehaviour
     private Camera arCamera;
 
     public Text debugText;
+
+    private GameObject[] pipeObjects;
+    private GameObject[] selectedObjects;
+    private GameObject[] unselectedObjects;
 
     public GameObject getPipesButton;
     public ARPlaneManager aRPlaneManager;
@@ -324,10 +329,37 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     }
 
+
     public void resetSession()
     {
+
+        pipeObjects = GameObject.FindGameObjectsWithTag("Pipe");
+        selectedObjects = GameObject.FindGameObjectsWithTag("Selected");
+        unselectedObjects = GameObject.FindGameObjectsWithTag("Unselected");
+
+        var finalArray = pipeObjects.Concat(selectedObjects);
+        finalArray = finalArray.Concat(unselectedObjects);
+        finalArray.ToArray();
+
+        foreach(GameObject pipe in selectedObjects)
+        {
+            unselectObject(pipe);
+        }
+
+        spawnedObject = null;
+        gameObjectToInstantiate = null;
+        deleteButton.GetComponent<Button>().interactable = false;
+        rotateButton.GetComponent<Button>().interactable = false;
+
+        foreach (GameObject pipe in finalArray)
+        {
+            Destroy(pipe.gameObject);
+        }
+
         arSession.GetComponent<ARSession>().Reset();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
+
+
     }
 
     void ChangeSelectedObject(GameObject gameObject)
