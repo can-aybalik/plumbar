@@ -19,6 +19,9 @@ public class ARTapToPlaceObject : MonoBehaviour
 
     public Text debugText;
 
+    public bool namePanelCheck = false;
+    public bool resolveCheck = false;
+
     private GameObject[] pipeObjects;
     private GameObject[] selectedObjects;
     private GameObject[] unselectedObjects;
@@ -101,7 +104,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
         Ray ray = arCamera.ScreenPointToRay(touchPosition);
         RaycastHit hitObject;
-        if (Physics.Raycast(ray, out hitObject))
+        if (Physics.Raycast(ray, out hitObject) && !namePanelCheck && !resolveCheck)
         {
             if (hitObject.transform.tag != "Plane" && touch.phase == TouchPhase.Began) //Object Hit
             {
@@ -367,7 +370,7 @@ public class ARTapToPlaceObject : MonoBehaviour
         if (gameObject.tag != "Selected") //Object Not Selected
         {
             MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
-            meshRenderer.material.color = Color.black;
+            meshRenderer.material.color = Color.red;
             if (GameObject.FindGameObjectWithTag("Selected") != null)
             {
                 unselectObject(GameObject.FindGameObjectWithTag("Selected"));
@@ -385,7 +388,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     void unselectObject(GameObject gameObject)
     {
         MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer>();
-        meshRenderer.material.color = Color.red;
+        meshRenderer.material.color = Color.white;
         gameObject.tag = "Unselected";
     }
 

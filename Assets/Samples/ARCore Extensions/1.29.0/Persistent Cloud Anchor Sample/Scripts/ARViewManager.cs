@@ -43,6 +43,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         private GameObject[] unselectedObjects;
         public GameObject pipeUI;
 
+        public ARTapToPlaceObject aRTapToPlace;
+
         private string pipe_data = "";
         public GameObject anchor;
         public GameObject[] pipes;
@@ -236,6 +238,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             ShareButton.gameObject.SetActive(true);
             ShareButton.gameObject.GetComponent<Button>().interactable = true;
             NamePanel.SetActive(false);
+            aRTapToPlace.namePanelCheck = false;
         }
 
         /// <summary>
@@ -710,6 +713,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                 NameField.text = _hostedCloudAnchor.Name;
                 NamePanel.SetActive(true);
                 SetSaveButtonActive(true);
+                aRTapToPlace.namePanelCheck = true;
             }
             else
             {

@@ -36,6 +36,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         public GameObject backButtonForResolve;
         public GameObject getPipesButton;
 
+        public ARTapToPlaceObject aRTapToPlace;
+
         public ARSession aRSession;
 
         public ARPlaneManager aRPlaneManager;
@@ -197,6 +199,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
         public void backButton()
         {
+
+            aRTapToPlace.resolveCheck = false;
             aRSession.Reset();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
             
@@ -218,6 +222,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             {
                 SwitchToARView();
                 backButtonForResolve.SetActive(true);
+                
 
                 return;
             }
@@ -236,6 +241,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                 SwitchToARView();
                 backButtonForResolve.SetActive(true);
                 getPipesButton.SetActive(true);
+                aRTapToPlace.resolveCheck = true;
                 return;
             }
 
