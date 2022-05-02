@@ -30,6 +30,10 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
     using UnityEngine.XR.ARSubsystems;
     using System.Linq;
     using System.Globalization;
+    using UnityEngine.Networking;
+    using System;
+    using System.Collections;
+    using UnityEngine.SceneManagement;
 
     /// <summary>
     /// A manager component that helps with hosting and resolving Cloud Anchors.
@@ -42,8 +46,16 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         private GameObject[] selectedObjects;
         private GameObject[] unselectedObjects;
         public GameObject pipeUI;
+        public string json;
+        string url = "http://kilometretakip.site/PlumbAR/dbOperations.php";
 
         public ARTapToPlaceObject aRTapToPlace;
+
+        public string areaShareString;
+
+        public string insertedAreaId;
+
+        public Text jsonCheck;
 
         private string pipe_data = "";
         public GameObject anchor;
@@ -246,9 +258,51 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// </summary>
         public void OnShareButtonClicked()
         {
+            //StartCoroutine(insertArea());
+
             collectPipes();
             GUIUtility.systemCopyBuffer = _hostedCloudAnchor.Id + pipe_data;
-            DebugText.text = "Copied cloud id: " + _hostedCloudAnchor.Id;
+            areaShareString = _hostedCloudAnchor.Id + pipe_data;
+
+            //DebugText.text = "Copied cloud id: " + _hostedCloudAnchor.Id;
+            
+            StartCoroutine(addShareString());
+        
+        }
+
+        IEnumerator insertArea()
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("operation", "insertAreaName");
+            jsonCheck.text = _hostedCloudAnchor.Name;
+            form.AddField("area_name", _hostedCloudAnchor.Name);
+
+            UnityWebRequest conn = UnityWebRequest.Post(url, form);
+            yield return conn.SendWebRequest();
+
+            json = conn.downloadHandler.text;
+            jsonCheck.text = json;
+            //Newtonsoft.Json.Linq.JObject my_json = Newtonsoft.Json.Linq.JObject.Parse(json);
+            insertedAreaId = json;
+            //jsonCheck.text = (String)my_json;
+        }
+
+        IEnumerator addShareString()
+        {
+
+            yield return StartCoroutine(insertArea());
+
+            WWWForm form = new WWWForm();
+            form.AddField("operation", "addShareString");
+            form.AddField("area_share_string", areaShareString);
+            form.AddField("id", insertedAreaId);
+
+
+            UnityWebRequest conn = UnityWebRequest.Post(url, form);
+            yield return conn.SendWebRequest();
+
+            json = conn.downloadHandler.text;
+            jsonCheck.text = jsonCheck.text + json;
         }
 
         //1-(1,2,3)-(3-4-5)*2-(2,4,6)-(4,6,8)

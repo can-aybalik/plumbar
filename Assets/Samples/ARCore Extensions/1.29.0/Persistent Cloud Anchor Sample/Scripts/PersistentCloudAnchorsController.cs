@@ -236,6 +236,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// </summary>
         public void SwitchToPrivacyPrompt()
         {
+
             if (PlayerPrefs.HasKey(_hasDisplayedStartInfoKey))
             {
                 SwitchToARView();

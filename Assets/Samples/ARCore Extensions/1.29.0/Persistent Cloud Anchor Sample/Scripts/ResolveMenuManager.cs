@@ -26,11 +26,20 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
     using UnityEngine;
     using UnityEngine.UI;
 
+    using System.Globalization;
+    using UnityEngine.Networking;
+    using System.Collections;
+    using UnityEngine.SceneManagement;
+
     /// <summary>
     /// A manager component that helps to populate and handle the options of resolving anchors.
     /// </summary>
     public class ResolveMenuManager : MonoBehaviour
     {
+        public string json;
+        string url = "http://kilometretakip.site/PlumbAR/dbOperations.php";
+
+        public Text jsonCheck;
 
         public pipeController pipecontroller;
         /// <summary>
@@ -120,7 +129,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             // Add Cloud Anchor Ids from input field.
             if (!InvalidInputWarning.activeSelf && InputField.text.Length > 0)
             {
-                string[] inputIds = { InputField.text.Substring(0, 35) };
+                StartCoroutine(selectAreaShareString());
+                string[] inputIds = { json.Substring(0, 35) };
 
                 if (inputIds.Length > 0)
                 {
@@ -128,10 +138,25 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                 }
             }
 
-            pipecontroller.pipe_data = InputField.text.Substring(35);
+            pipecontroller.pipe_data = json.Substring(35);
+
+            jsonCheck.text = json;
 
             // Update resolve button.
-            SetButtonActive(ResolveButton, Controller.ResolvingSet.Count > 0);
+            SetButtonActive(ResolveButton, true);
+        }
+
+        IEnumerator selectAreaShareString()
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("operation", "insertAreaName");
+            form.AddField("area_id", InputField.text);
+
+            UnityWebRequest conn = UnityWebRequest.Post(url, form);
+            yield return conn.SendWebRequest();
+
+            json = conn.downloadHandler.text;
+
         }
 
         /// <summary>

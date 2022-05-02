@@ -160,7 +160,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -99.99988}
-  m_SizeDelta: {x: -43.98755, y: -1231.0835}
+  m_SizeDelta: {x: -78.82257, y: -1157.6451}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &14302702
 MonoBehaviour:
@@ -333,10 +333,10 @@ RectTransform:
   m_Father: {fileID: 1672877871}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -150}
-  m_SizeDelta: {x: 0, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &95315576
 MonoBehaviour:
@@ -1049,10 +1049,10 @@ RectTransform:
   m_Father: {fileID: 754483276}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -254.89722}
-  m_SizeDelta: {x: 0, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &181698044
 MonoBehaviour:
@@ -1704,10 +1704,10 @@ RectTransform:
   m_Father: {fileID: 1548180176}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -124.59518}
+  m_SizeDelta: {x: 500, y: 101.19484}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &260465387
 MonoBehaviour:
@@ -1742,7 +1742,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Scan your space to and create a new Cloud Anchor accessible by others.
+  m_Text: 'Scan your space to create and share a Plumbing model
 
 '
 --- !u!222 &260465388
@@ -1956,7 +1956,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Begin hosting
+  m_Text: Start Creating
 --- !u!222 &300331649
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2074,7 +2074,7 @@ RectTransform:
   m_Children:
   - {fileID: 1758320924}
   m_Father: {fileID: 2046636725}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2095,7 +2095,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pipecontroller: {fileID: 1235274835}
   pipeUI: {fileID: 1452717744}
+  json: 
   aRTapToPlace: {fileID: 1539945738}
+  areaShareString: 
+  insertedAreaId: 
+  jsonCheck: {fileID: 1649914849}
   anchor: {fileID: 9172579932562624880, guid: c5b65a7b94ff2e94aa1f2bf29c1da4f7, type: 3}
   pipes:
   - {fileID: 3526044701955987226, guid: 98fdbe6c9817e144bbe50c0e03a736ff, type: 3}
@@ -2368,7 +2372,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -271.90585, y: 39.354797}
+  m_SizeDelta: {x: -300.44186, y: 40.22652}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &417424304
 MonoBehaviour:
@@ -2589,7 +2593,7 @@ RectTransform:
   - {fileID: 2013769650}
   - {fileID: 1810386290}
   m_Father: {fileID: 2046636725}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3834,7 +3838,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter a name for your anchor ID (to be stored in local app storage)
+  m_Text: Enter a name for your plumbing model
 --- !u!222 &789555281
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4043,7 +4047,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2046636725}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4559,7 +4563,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Cloud Anchor Name
+  m_Text: Plumbing Model Name
 --- !u!222 &918539629
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4600,10 +4604,10 @@ RectTransform:
   m_Father: {fileID: 754483276}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -124.362076}
-  m_SizeDelta: {x: 500, y: 101.070274}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &931534209
 MonoBehaviour:
@@ -4684,10 +4688,10 @@ RectTransform:
   m_Father: {fileID: 1672877871}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -320}
-  m_SizeDelta: {x: 280, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &939437628
 MonoBehaviour:
@@ -6332,10 +6336,10 @@ RectTransform:
   m_Father: {fileID: 1175880403}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -216.37315}
+  m_SizeDelta: {x: 500, y: 67.253716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1166272676
 MonoBehaviour:
@@ -6370,9 +6374,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Localize this device against previously created Cloud Anchor(s).
-
-'
+  m_Text: Open an existing model created by another user
 --- !u!222 &1166272677
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6413,7 +6415,7 @@ RectTransform:
   m_Children:
   - {fileID: 707569581}
   m_Father: {fileID: 2046636725}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6753,7 +6755,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1225789857
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6768,7 +6770,7 @@ RectTransform:
   - {fileID: 2051506091}
   - {fileID: 1946047199}
   m_Father: {fileID: 2046636725}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6787,6 +6789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ab09635846c4aeeb06fa2d25748a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  json: 
+  jsonCheck: {fileID: 1649914849}
   pipecontroller: {fileID: 1235274835}
   Controller: {fileID: 1986178302}
   Multiselection: {fileID: 1405237638}
@@ -6825,10 +6829,10 @@ RectTransform:
   m_Father: {fileID: 754483276}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -21.913465}
-  m_SizeDelta: {x: 317.52164, y: 43.82693}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1230221963
 MonoBehaviour:
@@ -7672,7 +7676,7 @@ RectTransform:
   - {fileID: 1782934732}
   - {fileID: 912013682}
   m_Father: {fileID: 2046636725}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7989,7 +7993,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Begin resolving
+  m_Text: Open Model
 --- !u!222 &1514066064
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8030,10 +8034,10 @@ RectTransform:
   m_Father: {fileID: 1548180176}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -21.998878}
+  m_SizeDelta: {x: 414.20746, y: 43.997757}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1519181032
 MonoBehaviour:
@@ -8068,7 +8072,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Host a Cloud Anchor
+  m_Text: Create Plumbing Model
 --- !u!222 &1519181033
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8187,10 +8191,10 @@ RectTransform:
   m_Father: {fileID: 1175880403}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -320}
+  m_SizeDelta: {x: 280, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1532637565
 MonoBehaviour:
@@ -8955,6 +8959,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617254080}
   m_CullTransparentMesh: 1
+--- !u!1 &1649914848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1649914851}
+  - component: {fileID: 1649914850}
+  - component: {fileID: 1649914849}
+  m_Layer: 5
+  m_Name: JsonCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1649914849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649914848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 240
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &1649914850
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649914848}
+  m_CullTransparentMesh: 1
+--- !u!224 &1649914851
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649914848}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2046636725}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000019073, y: 135}
+  m_SizeDelta: {x: 628.7292, y: 220.6693}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1672877870
 GameObject:
   m_ObjectHideFlags: 0
@@ -9167,7 +9250,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1753071779
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9182,7 +9265,7 @@ RectTransform:
   - {fileID: 1363130560}
   - {fileID: 1031606315}
   m_Father: {fileID: 2046636725}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9468,10 +9551,10 @@ RectTransform:
   m_Father: {fileID: 1175880403}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -130.7474}
+  m_SizeDelta: {x: 366.43848, y: 43.997757}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1786809785
 MonoBehaviour:
@@ -9506,7 +9589,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Resolve Cloud Anchor(s)
+  m_Text: Open Existing Model
 --- !u!222 &1786809786
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10237,10 +10320,10 @@ RectTransform:
   m_Father: {fileID: 1548180176}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -245.1926}
+  m_SizeDelta: {x: 280, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2005420923
 MonoBehaviour:
@@ -10680,6 +10763,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1649914851}
   - {fileID: 320699768}
   - {fileID: 511486696}
   - {fileID: 1225789857}
