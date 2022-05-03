@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json.Linq;
 
 public class Main : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class Main : MonoBehaviour
         full_name.text = Login.name + " " + Login.surname;
         email.text = Login.mail;
         StartCoroutine(getAreas());
-        SphereCollider sc = gameObject.AddComponent(typeof(SphereCollider)) as SphereCollider;
+        //SphereCollider sc = gameObject.AddComponent(typeof(SphereCollider)) as SphereCollider;
     }
 
     // Update is called once per frame
@@ -30,16 +31,33 @@ public class Main : MonoBehaviour
     IEnumerator getAreas()
     {
         WWWForm form = new WWWForm();
-        form.AddField("operation", "selectOwnership");
+        form.AddField("operation", "selectAreasOfAUser");
         form.AddField("user_id", Login.user_id);
 
         UnityWebRequest conn = UnityWebRequest.Post(url, form);
         yield return conn.SendWebRequest();
 
         json = conn.downloadHandler.text;
-        if (json.Length != 0)
+        JObject my_json = JObject.Parse(json);
+
+        /*
+        foreach (Newtonsoft.Json.Linq.JToken c in my_json)
         {
-            Debug.Log(json);
+            if (c == ':')
+            {
+                continue;
+            }
+            if (Char.IsNumber(c))
+            {
+                user_id += c;
+            }
+            if (c == ',')
+            {
+                break;
+            }
         }
+        */
+        Debug.Log(my_json["area_0"]);
+
     }
 }
