@@ -25,17 +25,31 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
     using UnityEngine;
     using UnityEngine.XR.ARFoundation;
     using UnityEngine.SceneManagement;
+    using UnityEngine.UI;
 
+    using System.Globalization;
+    using UnityEngine.Networking;
+    using System.Collections;
+    using UnityEngine.SceneManagement;
     /// <summary>
     /// Controller for Persistent Cloud Anchors sample.
     /// </summary>
     public class PersistentCloudAnchorsController : MonoBehaviour
     {
+
+        public string json;
+        string url = "http://kilometretakip.site/PlumbAR/dbOperations.php";
+
+        public Text jsonCheck;
+
+        public InputField inputField;
+
+
         [Header("AR Foundation")]
 
         public GameObject backButtonForResolve;
         public GameObject getPipesButton;
-
+        public pipeController pipecontroller;
         public ARTapToPlaceObject aRTapToPlace;
 
         public ARSession aRSession;
@@ -239,6 +253,18 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
             if (PlayerPrefs.HasKey(_hasDisplayedStartInfoKey))
             {
+                
+                StartCoroutine(selectAreaShareString());
+
+                jsonCheck.text = "111111111111";
+                string[] inputIds = { json.Substring(0, 35) };
+                jsonCheck.text = "22222222222222";
+                ResolvingSet.UnionWith(inputIds);
+                jsonCheck.text = "3333333333333";
+                pipecontroller.pipe_data = json.Substring(35);
+                jsonCheck.text = "444444444444444";
+
+
                 SwitchToARView();
                 backButtonForResolve.SetActive(true);
                 getPipesButton.SetActive(true);
@@ -248,6 +274,23 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
             ResetAllViews();
             PrivacyPrompt.SetActive(true);
+        }
+
+        IEnumerator selectAreaShareString()
+        {
+
+            
+            WWWForm form = new WWWForm();
+            
+            form.AddField("operation", "selectAreaShareString");
+            form.AddField("area_id", inputField.text);
+
+            UnityWebRequest conn = UnityWebRequest.Post(url, form);
+            yield return conn.SendWebRequest();
+
+            json = conn.downloadHandler.text;
+            
+
         }
 
         /// <summary>

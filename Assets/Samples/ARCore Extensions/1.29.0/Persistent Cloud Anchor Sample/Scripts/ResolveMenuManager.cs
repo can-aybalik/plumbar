@@ -41,6 +41,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
         public Text jsonCheck;
 
+
         public pipeController pipecontroller;
         /// <summary>
         /// The main controller for Persistent Cloud Anchors sample.
@@ -124,13 +125,15 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                 }
             }
 
-            
+
 
             // Add Cloud Anchor Ids from input field.
+
+            /*
+            
             if (!InvalidInputWarning.activeSelf && InputField.text.Length > 0)
             {
-                StartCoroutine(selectAreaShareString());
-                string[] inputIds = { json.Substring(0, 35) };
+                string[] inputIds = { InputField.text.Substring(0, 35) };
 
                 if (inputIds.Length > 0)
                 {
@@ -138,12 +141,13 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                 }
             }
 
-            pipecontroller.pipe_data = json.Substring(35);
 
-            jsonCheck.text = json;
+
+            //pipecontroller.pipe_data = InputField.text.Substring(35);
 
             // Update resolve button.
-            SetButtonActive(ResolveButton, true);
+            SetButtonActive(ResolveButton, Controller.ResolvingSet.Count > 0);
+            */
         }
 
         IEnumerator selectAreaShareString()
@@ -172,7 +176,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// </summary>
         public void OnEnable()
         {
-            SetButtonActive(ResolveButton, false);
+            SetButtonActive(ResolveButton, true);
             InvalidInputWarning.SetActive(false);
             InputField.text = string.Empty;
             _history = Controller.LoadCloudAnchorHistory();

@@ -302,7 +302,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             yield return conn.SendWebRequest();
 
             json = conn.downloadHandler.text;
-            jsonCheck.text = jsonCheck.text + json;
+            //jsonCheck.text = jsonCheck.text + json;
         }
 
         //1-(1,2,3)-(3-4-5)*2-(2,4,6)-(4,6,8)
