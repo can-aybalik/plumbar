@@ -31,6 +31,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
     using UnityEngine.Networking;
     using System.Collections;
     using UnityEngine.SceneManagement;
+    using Newtonsoft.Json.Linq;
     /// <summary>
     /// Controller for Persistent Cloud Anchors sample.
     /// </summary>
@@ -137,6 +138,11 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// The limitation of how many Cloud Anchors can be stored in local storage.
         /// </summary>
         private const int _storageLimit = 40;
+
+        private void Start()
+        {
+            
+        }
 
         /// <summary>
         /// Sample application modes.
@@ -265,11 +271,57 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                 backButtonForResolve.SetActive(true);
                 getPipesButton.SetActive(true);
                 aRTapToPlace.resolveCheck = true;
+
+                StartCoroutine(selectArea());
                 return;
             }
 
             ResetAllViews();
             PrivacyPrompt.SetActive(true);
+        }
+
+        public void listItemClicked(GameObject areaId)
+        {
+
+        }
+
+        IEnumerator insertOwnership()
+        {
+
+            WWWForm form = new WWWForm();
+            form.AddField("operation", "insertOwnership");
+            form.AddField("owner_id", Login.user_id);
+            form.AddField("area_id", inputField.text);
+            form.AddField("ownership_type", "3");
+
+
+            UnityWebRequest conn = UnityWebRequest.Post(url, form);
+            yield return conn.SendWebRequest();
+
+            json = conn.downloadHandler.text;
+            jsonCheck.text = json;
+        }
+
+        IEnumerator selectArea()
+        {
+
+            WWWForm form = new WWWForm();
+            form.AddField("operation", "selectArea");
+            form.AddField("area_id", inputField.text);
+            
+
+
+            UnityWebRequest conn = UnityWebRequest.Post(url, form);
+            yield return conn.SendWebRequest();
+
+            json = conn.downloadHandler.text;
+            JObject my_json = JObject.Parse(json);
+
+            if((String)my_json["creator_id"] != Login.user_id)
+            {
+                yield return StartCoroutine(insertOwnership());
+            }
+            //jsonCheck.text = json;
         }
 
         IEnumerator selectAreaShareString()

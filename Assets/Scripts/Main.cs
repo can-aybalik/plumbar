@@ -17,6 +17,8 @@ public class Main : MonoBehaviour
     public GameObject list_item;
     public GameObject area_list;
 
+    public pipeController pipeController;
+
     public string creator = "";
 
     // Start is called before the first frame update
@@ -58,7 +60,13 @@ public class Main : MonoBehaviour
             yield return StartCoroutine(selectCreatorById((String)x["creator_id"]));
             newListItem.transform.GetChild(1).transform.GetChild(1).transform.GetChild(1).gameObject.GetComponent<Text>().text = creator;
 
+            newListItem.transform.GetChild(1).transform.GetChild(2).transform.GetChild(1).gameObject.GetComponent<Text>().text = (String)x["id"];
 
+            if((String)x["creator_id"] == Login.user_id)
+            {
+                Debug.Log("GÝRDÝÝÝÝÝ");
+                newListItem.transform.GetChild(1).transform.GetChild(2).gameObject.SetActive(true);
+            }
 
         }
 
@@ -86,5 +94,10 @@ public class Main : MonoBehaviour
 
         creator = my_json["name"] + " " + my_json["surname"];
 
+    }
+
+    public void listItemClicked(GameObject areaId)
+    {
+        pipeController.clickedAreaId = areaId.GetComponent<Text>().text;
     }
 }

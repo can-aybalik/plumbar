@@ -6,6 +6,7 @@ public class pipeController : MonoBehaviour
 {
 
     public string pipe_data;
+    public string clickedAreaId;
     public bool check = false;
     
     // Start is called before the first frame update

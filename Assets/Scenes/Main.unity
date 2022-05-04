@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 192524628}
   - component: {fileID: 192524627}
   m_Layer: 5
-  m_Name: created_at
+  m_Name: area_id
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -569,7 +569,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Created at
+  m_Text: 'Area ID:'
 --- !u!222 &304248729
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -590,6 +590,7 @@ GameObject:
   - component: {fileID: 374784931}
   - component: {fileID: 374784930}
   - component: {fileID: 374784929}
+  - component: {fileID: 374784932}
   m_Layer: 5
   m_Name: list_item
   m_TagString: Untagged
@@ -682,6 +683,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 374784927}
   m_CullTransparentMesh: 1
+--- !u!114 &374784932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374784927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 486446896}
+          m_TargetAssemblyTypeName: Main, Assembly-CSharp
+          m_MethodName: listItemClicked
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1743412914}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &383823216
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,6 +807,7 @@ GameObject:
   - component: {fileID: 486446894}
   - component: {fileID: 486446895}
   - component: {fileID: 486446896}
+  - component: {fileID: 486446897}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -912,6 +943,23 @@ MonoBehaviour:
   json: 
   list_item: {fileID: 374784927}
   area_list: {fileID: 1929849558}
+  pipeController: {fileID: 486446897}
+  creator: 
+--- !u!114 &486446897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486446889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788c3e10a1cd8c74c9017330701521a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pipe_data: 
+  clickedAreaId: 
+  check: 0
 --- !u!1 &501962156
 GameObject:
   m_ObjectHideFlags: 0
@@ -2209,7 +2257,7 @@ GameObject:
   - component: {fileID: 1743412917}
   - component: {fileID: 1743412916}
   m_Layer: 5
-  m_Name: creation_date
+  m_Name: area_code
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
