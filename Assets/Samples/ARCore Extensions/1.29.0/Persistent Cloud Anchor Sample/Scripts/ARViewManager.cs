@@ -273,15 +273,16 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         IEnumerator insertArea()
         {
             WWWForm form = new WWWForm();
-            form.AddField("operation", "insertAreaName");
-            jsonCheck.text = _hostedCloudAnchor.Name;
+            form.AddField("operation", "insertArea");
+            //jsonCheck.text = _hostedCloudAnchor.Name;
             form.AddField("area_name", _hostedCloudAnchor.Name);
+            form.AddField("creator_id", Login.user_id);
 
             UnityWebRequest conn = UnityWebRequest.Post(url, form);
             yield return conn.SendWebRequest();
 
             json = conn.downloadHandler.text;
-            jsonCheck.text = json;
+            
             //Newtonsoft.Json.Linq.JObject my_json = Newtonsoft.Json.Linq.JObject.Parse(json);
             insertedAreaId = json;
             //jsonCheck.text = (String)my_json;
@@ -302,7 +303,26 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             yield return conn.SendWebRequest();
 
             json = conn.downloadHandler.text;
-            //jsonCheck.text = jsonCheck.text + json;
+            //jsonCheck.text = json;
+
+            yield return StartCoroutine(insertOwnership());
+        }
+
+        IEnumerator insertOwnership()
+        {
+
+            WWWForm form = new WWWForm();
+            form.AddField("operation", "insertOwnership");
+            form.AddField("owner_id", Login.user_id);
+            form.AddField("area_id", insertedAreaId);
+            form.AddField("ownership_type", "1");
+
+
+            UnityWebRequest conn = UnityWebRequest.Post(url, form);
+            yield return conn.SendWebRequest();
+
+            json = conn.downloadHandler.text;
+            jsonCheck.text = json;
         }
 
         //1-(1,2,3)-(3-4-5)*2-(2,4,6)-(4,6,8)

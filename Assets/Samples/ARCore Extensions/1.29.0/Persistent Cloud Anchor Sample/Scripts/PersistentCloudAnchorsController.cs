@@ -256,13 +256,9 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                 
                 StartCoroutine(selectAreaShareString());
 
-                jsonCheck.text = "111111111111";
                 string[] inputIds = { json.Substring(0, 35) };
-                jsonCheck.text = "22222222222222";
                 ResolvingSet.UnionWith(inputIds);
-                jsonCheck.text = "3333333333333";
                 pipecontroller.pipe_data = json.Substring(35);
-                jsonCheck.text = "444444444444444";
 
 
                 SwitchToARView();
