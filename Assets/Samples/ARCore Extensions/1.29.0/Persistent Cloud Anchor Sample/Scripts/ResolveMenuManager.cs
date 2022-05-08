@@ -51,7 +51,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// <summary>
         /// A multiselection dropdown component that contains all available resolving options.
         /// </summary>
-        public MultiselectionDropdown Multiselection;
+        //public MultiselectionDropdown Multiselection;
 
         /// <summary>
         /// An input field for manually typing Cloud Anchor Id(s).
@@ -116,6 +116,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             Controller.ResolvingSet.Clear();
 
             // Add Cloud Anchor Ids from multiselection dropdown.
+            /*
             List<int> selectedIndex = Multiselection.SelectedValues;
             if (selectedIndex.Count > 0)
             {
@@ -124,7 +125,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                     Controller.ResolvingSet.Add(_history.Collection[index].Id);
                 }
             }
-
+            */
 
 
             // Add Cloud Anchor Ids from input field.
@@ -181,7 +182,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             InputField.text = string.Empty;
             _history = Controller.LoadCloudAnchorHistory();
 
-            Multiselection.OnValueChanged += OnResolvingSelectionChanged;
+            //Multiselection.OnValueChanged += OnResolvingSelectionChanged;
             var options = new List<MultiselectionDropdown.OptionData>();
             foreach (var data in _history.Collection)
             {
@@ -189,7 +190,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                     data.Name, FormatDateTime(data.CreatedTime)));
             }
 
-            Multiselection.Options = options;
+            //Multiselection.Options = options;
         }
 
         /// <summary>
@@ -197,9 +198,9 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// </summary>
         public void OnDisable()
         {
-            Multiselection.OnValueChanged -= OnResolvingSelectionChanged;
-            Multiselection.Deselect();
-            Multiselection.Options.Clear();
+            //Multiselection.OnValueChanged -= OnResolvingSelectionChanged;
+            //Multiselection.Deselect();
+            //Multiselection.Options.Clear();
             _history.Collection.Clear();
         }
 

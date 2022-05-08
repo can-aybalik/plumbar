@@ -31,6 +31,11 @@ public class LoadScene : MonoBehaviour
         SceneManager.LoadScene(5);
     }
 
+    public void host2Main()
+    {
+        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+    }
+
     // Start is called before the first frame update
     void Start()
     {

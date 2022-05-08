@@ -226,9 +226,10 @@ public class ARTapToPlaceObject : MonoBehaviour
             pipe_position = getVector3(pipe_dash[1]);
             pipe_rotation = getQuaternion(pipe_dash[2]);
 
+            Quaternion relativeRotation = pipe_rotation * anchorPos.rotation;
 
             //Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, Quaternion.Euler(pipe_rotation + anchorPos.rotation.eulerAngles));
-            Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, pipe_rotation * anchorPos.rotation);
+            Instantiate(pipes[int.Parse(pipe_name) - 1], pipe_position + anchorPos.position, new Quaternion(relativeRotation.x, relativeRotation.y, 0, relativeRotation.w));
         }
 
         getPipesButton.SetActive(false);

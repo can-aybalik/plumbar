@@ -784,7 +784,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                     string.Format("Succeed to host the Cloud Anchor: {0}.", response);
 
                 // Display name panel and hide instruction bar.
-                NameField.text = _hostedCloudAnchor.Name;
+                //NameField.text = _hostedCloudAnchor.Name;
                 NamePanel.SetActive(true);
                 SetSaveButtonActive(true);
                 aRTapToPlace.namePanelCheck = true;
