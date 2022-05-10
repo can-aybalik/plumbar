@@ -42,6 +42,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         string url = "http://kilometretakip.site/PlumbAR/dbOperations.php";
 
         public Text jsonCheck;
+        public GameObject jsonCheckGameObject;
 
         public InputField inputField;
 
@@ -52,6 +53,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         public GameObject getPipesButton;
         public pipeController pipecontroller;
         public ARTapToPlaceObject aRTapToPlace;
+
+        public GameObject arSessionGameObject;
 
         public ARSession aRSession;
 
@@ -219,10 +222,11 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
         public void backButton()
         {
-
+            
             aRTapToPlace.resolveCheck = false;
-            aRSession.Reset();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
+            arSessionGameObject.GetComponent<ARSession>().Reset();
+            jsonCheckGameObject.SetActive(false);
+            SceneManager.LoadScene("Main", LoadSceneMode.Single);
             
         }
 
@@ -262,17 +266,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
                 
                 StartCoroutine(selectAreaShareString());
 
-                string[] inputIds = { json.Substring(0, 35) };
-                ResolvingSet.UnionWith(inputIds);
-                pipecontroller.pipe_data = json.Substring(35);
 
-
-                SwitchToARView();
-                backButtonForResolve.SetActive(true);
-                getPipesButton.SetActive(true);
-                aRTapToPlace.resolveCheck = true;
-
-                StartCoroutine(selectArea());
                 return;
             }
 
@@ -298,8 +292,10 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             UnityWebRequest conn = UnityWebRequest.Post(url, form);
             yield return conn.SendWebRequest();
 
+            
             json = conn.downloadHandler.text;
             jsonCheck.text = json;
+            Debug.Log(json);
         }
 
         IEnumerator selectArea()
@@ -337,7 +333,35 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             yield return conn.SendWebRequest();
 
             json = conn.downloadHandler.text;
-            
+
+            string[] inputIds = { json.Substring(0, 35) };
+            ResolvingSet.UnionWith(inputIds);
+            pipecontroller.pipe_data = json.Substring(35);
+
+
+            SwitchToARView();
+            backButtonForResolve.SetActive(true);
+            getPipesButton.SetActive(true);
+            aRTapToPlace.resolveCheck = true;
+
+            form = new WWWForm();
+            form.AddField("operation", "selectArea");
+            form.AddField("area_id", inputField.text);
+
+
+
+            conn = UnityWebRequest.Post(url, form);
+            yield return conn.SendWebRequest();
+
+            json = conn.downloadHandler.text;
+            JObject my_json = JObject.Parse(json);
+
+            if ((String)my_json["creator_id"] != Login.user_id)
+            {
+                yield return StartCoroutine(insertOwnership());
+            }
+            //jsonCheck.text = json;
+
 
         }
 
@@ -350,6 +374,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             PlayerPrefs.SetInt(_hasDisplayedStartInfoKey, 1);
             ARView.SetActive(true);
             SetPlatformActive(true);
+            
         }
 
         /// <summary>
@@ -453,6 +478,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             SessionOrigin.gameObject.SetActive(active);
             SessionCore.gameObject.SetActive(active);
             Extensions.gameObject.SetActive(active);
+
         }
     }
 }

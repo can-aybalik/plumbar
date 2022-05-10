@@ -51,11 +51,18 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
 
         public ARTapToPlaceObject aRTapToPlace;
 
+        public GameObject arSessionOrigin;
+
         public string areaShareString;
 
         public string insertedAreaId;
 
         public Text jsonCheck;
+
+        public GameObject jsonCheckGameObject;
+
+        public GameObject pipesUI;
+        public GameObject backButtonForResolve;
 
         private string pipe_data = "";
         public GameObject anchor;
@@ -234,7 +241,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             // Cloud Anchor name should only contains: letters, numbers, hyphen(-), underscore(_).
             //var regex = new Regex("^[a-zA-Z0-9-_]*$");
             //InputFieldWarning.SetActive(!regex.IsMatch(inputString));
-            SetSaveButtonActive(!InputFieldWarning.activeSelf && inputString.Length > 0);
+            //SetSaveButtonActive(!InputFieldWarning.activeSelf && inputString.Length > 0);
         }
 
         /// <summary>
@@ -267,7 +274,19 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             //DebugText.text = "Copied cloud id: " + _hostedCloudAnchor.Id;
             
             StartCoroutine(addShareString());
-        
+
+            pipesUI.SetActive(false);
+            backButtonForResolve.SetActive(true);
+            
+            
+
+            foreach (var plane in arSessionOrigin.GetComponent<ARPlaneManager>().trackables)
+            {
+                plane.gameObject.SetActive(false);
+            }
+
+            arSessionOrigin.GetComponent<ARPlaneManager>().enabled = false;
+
         }
 
         IEnumerator insertArea()
@@ -305,6 +324,8 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             json = conn.downloadHandler.text;
             //jsonCheck.text = json;
 
+            jsonCheck.text = "Your Area is saved with ID: " + (String)insertedAreaId;
+
             yield return StartCoroutine(insertOwnership());
         }
 
@@ -322,7 +343,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             yield return conn.SendWebRequest();
 
             json = conn.downloadHandler.text;
-            jsonCheck.text = json;
+            //jsonCheck.text = json;
         }
 
         //1-(1,2,3)-(3-4-5)*2-(2,4,6)-(4,6,8)
@@ -536,6 +557,9 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
             {
                 Instantiate(CloudAnchorPrefab, _anchor.transform);
                 pipeUI.SetActive(true);
+                jsonCheckGameObject.SetActive(true);
+                jsonCheck.text = "Current Detection Mode: Both";
+                //json
                 // Attach map quality indicator to this anchor.
                 var indicatorGO =
                     Instantiate(MapQualityIndicatorPrefab, _anchor.transform);

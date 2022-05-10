@@ -22,6 +22,8 @@ public class ARTapToPlaceObject : MonoBehaviour
     public bool namePanelCheck = false;
     public bool resolveCheck = false;
 
+    public GameObject jsonCheck;
+
     private GameObject[] pipeObjects;
     private GameObject[] selectedObjects;
     private GameObject[] unselectedObjects;
@@ -401,6 +403,54 @@ public class ARTapToPlaceObject : MonoBehaviour
         orientation = Quaternion.FromToRotation(Vector3.up, planeNormal);
         Vector3 forward = _planeHit.pose.position - (_planeHit.pose.position + Vector3.down);
         zUp = Quaternion.LookRotation(forward, planeNormal);
+    }
+
+    public void horizontalOnly()
+    {
+        arSessionOrigin.GetComponent<ARPlaneManager>().requestedDetectionMode = PlaneDetectionMode.None;
+        arSessionOrigin.GetComponent<ARPlaneManager>().requestedDetectionMode = PlaneDetectionMode.Horizontal;
+
+
+
+        foreach (var plane in arSessionOrigin.GetComponent<ARPlaneManager>().trackables)
+        {
+            if(plane.alignment == PlaneAlignment.Vertical)
+                plane.gameObject.SetActive(false);
+            else
+                plane.gameObject.SetActive(true);
+        }
+
+        jsonCheck.GetComponent<Text>().text = "Current Detection Mode: Horizontal";
+    }
+
+    public void verticalOnly()
+    {
+        arSessionOrigin.GetComponent<ARPlaneManager>().requestedDetectionMode = PlaneDetectionMode.None;
+        arSessionOrigin.GetComponent<ARPlaneManager>().requestedDetectionMode = PlaneDetectionMode.Vertical;
+
+        foreach (var plane in arSessionOrigin.GetComponent<ARPlaneManager>().trackables)
+        {
+            if (plane.alignment == PlaneAlignment.HorizontalDown || plane.alignment == PlaneAlignment.HorizontalUp)
+                plane.gameObject.SetActive(false);
+            else
+                plane.gameObject.SetActive(true);
+        }
+
+        jsonCheck.GetComponent<Text>().text = "Current Detection Mode: Vertical";
+    }
+
+    public void horizontalAndVertical()
+    {
+        arSessionOrigin.GetComponent<ARPlaneManager>().requestedDetectionMode = (PlaneDetectionMode)3;
+
+        foreach (var plane in arSessionOrigin.GetComponent<ARPlaneManager>().trackables)
+        {
+            plane.gameObject.SetActive(true);
+        }
+
+        jsonCheck.GetComponent<Text>().text = "Current Detection Mode: Both";
+
+
     }
 
 }

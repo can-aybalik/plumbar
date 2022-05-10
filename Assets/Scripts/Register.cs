@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using System;
+using UnityEngine.SceneManagement;
 
 public class Register : MonoBehaviour{
     public InputField user_name, surname, email, password;
@@ -10,6 +12,12 @@ public class Register : MonoBehaviour{
     public string Json;
     public Text info_text;
     public bool try_register;
+    public static string user_id_static;
+    public static string name_static;
+    public static string surname_static;
+    public static string mail_static;
+
+    public Newtonsoft.Json.Linq.JObject my_json;
 
     string url = "http://kilometretakip.site/PlumbAR/dbOperations.php";
 
@@ -19,7 +27,7 @@ public class Register : MonoBehaviour{
             return;
         }
 
-        try_register = true;
+        StartCoroutine(HandleRegister());
     }
 
     void Start(){
@@ -27,13 +35,11 @@ public class Register : MonoBehaviour{
     }
 
     void Update(){
-        if(try_register == true){
-            StartCoroutine(HandleRegister());
-            try_register = false;
-        }
+        
     }
 
     IEnumerator HandleRegister(){
+
         WWWForm form = new WWWForm();
         form.AddField("operation", "insertUser");
         form.AddField("name", user_name.text);
@@ -48,5 +54,17 @@ public class Register : MonoBehaviour{
 
         if(Json.Length > 5)
            Debug.Log(Json);
+
+        my_json = Newtonsoft.Json.Linq.JObject.Parse(Json);
+
+        if ((String)my_json["response"] == "OK")
+        {
+            name_static = user_name.text;
+            surname_static = surname.text;
+            mail_static = email.text;
+
+            SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        }
     }
+
 }

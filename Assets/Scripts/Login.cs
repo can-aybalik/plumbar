@@ -13,10 +13,10 @@ public class Login : MonoBehaviour
     public string json;
     public Text info_text;
     public bool try_login;
-    public static string user_id;
-    public static string name;
-    public static string surname;
-    public static string mail;
+    public static string user_id = "";
+    public static string name = "";
+    public static string surname = "";
+    public static string mail = "";
 
     string url = "http://kilometretakip.site/PlumbAR/dbOperations.php";
 

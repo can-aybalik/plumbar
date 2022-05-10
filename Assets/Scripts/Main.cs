@@ -24,10 +24,20 @@ public class Main : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        full_name.text = Login.name + " " + Login.surname;
-        email.text = Login.mail;
-        StartCoroutine(getAreas());
+
+        if(Login.name == "")
+        {
+            full_name.text = Register.name_static + " " + Register.surname_static;
+            email.text = Register.mail_static;
         
+        }
+        else
+        {
+            full_name.text = Login.name + " " + Login.surname;
+            email.text = Login.mail;
+        }
+        StartCoroutine(getAreas());
+
     }
 
     // Update is called once per frame
@@ -62,11 +72,13 @@ public class Main : MonoBehaviour
 
             newListItem.transform.GetChild(1).transform.GetChild(2).transform.GetChild(1).gameObject.GetComponent<Text>().text = (String)x["id"];
 
+            /*
             if((String)x["creator_id"] == Login.user_id)
             {
                 Debug.Log("GÝRDÝÝÝÝÝ");
                 newListItem.transform.GetChild(1).transform.GetChild(2).gameObject.SetActive(true);
             }
+            */
 
         }
 

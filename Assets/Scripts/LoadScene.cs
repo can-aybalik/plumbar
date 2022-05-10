@@ -28,12 +28,28 @@ public class LoadScene : MonoBehaviour
     public void main2HostResolve()
     {
         Debug.Log("Welcome loading...");
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene(5, LoadSceneMode.Single);
     }
 
     public void host2Main()
     {
         SceneManager.LoadScene("Main", LoadSceneMode.Single);
+    }
+
+    public void logout()
+    {
+        Login.user_id = "";
+        Login.name = "";
+        Login.surname = "";
+        Login.mail = "";
+
+        Register.name_static = "";
+        Register.surname_static = "";
+        Register.mail_static = "";
+        Register.user_id_static = "";
+
+        SceneManager.LoadScene("Welcome", LoadSceneMode.Single);
+
     }
 
     // Start is called before the first frame update

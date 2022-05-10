@@ -781,13 +781,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362dc9ef547714132b04481593073bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  user_name: {fileID: 0}
-  surname: {fileID: 0}
-  email: {fileID: 0}
-  password: {fileID: 0}
-  register: {fileID: 0}
+  user_name: {fileID: 1612192713}
+  surname: {fileID: 1328193896}
+  email: {fileID: 595959282}
+  password: {fileID: 714288638}
+  register: {fileID: 121369133}
   Json: 
-  info_text: {fileID: 0}
+  info_text: {fileID: 1030684532}
   try_register: 0
 --- !u!114 &486446895
 MonoBehaviour:

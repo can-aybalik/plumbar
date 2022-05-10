@@ -99,12 +99,14 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// <param name="inputString">The value of the input field.</param>
         public void OnInputFieldEndEdit(string inputString)
         {
+            /*
             if (InvalidInputWarning.activeSelf)
             {
                 return;
             }
 
             OnResolvingSelectionChanged();
+            */
         }
 
         /// <summary>
@@ -113,7 +115,7 @@ namespace Google.XR.ARCoreExtensions.Samples.PersistentCloudAnchors
         /// </summary>
         public void OnResolvingSelectionChanged()
         {
-            Controller.ResolvingSet.Clear();
+            //Controller.ResolvingSet.Clear();
 
             // Add Cloud Anchor Ids from multiselection dropdown.
             /*
